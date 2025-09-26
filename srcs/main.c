@@ -6,25 +6,28 @@
 /*   By: waroonwork@gmail.com <WaroonRagwongsiri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:48:33 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/09/26 17:35:19 by waroonwork@      ###   ########.fr       */
+/*   Updated: 2025/09/26 18:33:18 by waroonwork@      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-#define PROCESS_NUM 3
-
-int	main(void)
+// ./pipex infile cmd cmd outfile
+int	main(int argc, char **argv, char **env)
 {
-	int	pid[PROCESS_NUM];
-	int	pipes[PROCESS_NUM + 1][2];
+	int	pid[argc];
+	int	pipes[argc - 3][2];
 	int	i;
 	int	j;
-	int	x;
-	int	y;
+	int	in_fd;
+	int	out_fd;
 
+	if (argc < 5)
+		return (0);
+	in_fd = open(argv[1], O_RDONLY);
+	out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC);
 	i = 0;
-	while (i < PROCESS_NUM + 1)
+	while (i < argc - 3)
 	{
 		if (pipe(pipes[i]) == -1)
 		{
@@ -34,7 +37,7 @@ int	main(void)
 		i++;
 	}
 	i = 0;
-	while (i < PROCESS_NUM)
+	while (i < argc - 2)
 	{
 		pid[i] = fork();
 		if (pid[i] == -1)
@@ -44,58 +47,50 @@ int	main(void)
 		}
 		if (pid[i] == 0)
 		{
-			j = 0;
-			while (j < PROCESS_NUM + 1)
+			if (i == 0)
 			{
-				if (i != j)
-					close(pipes[j][0]);
-				if (j != i + 1)
-					close(pipes[j][1]);
+				dup2(in_fd, STDIN_FILENO);
+				dup2(pipes[i][1], STDOUT_FILENO);
+			}
+			else if (i == argc - 3)
+			{
+				dup2(pipes[i - 1][0], STDIN_FILENO);
+				dup2(out_fd, STDOUT_FILENO);
+			}
+			else
+			{
+				dup2(pipes[i - 1][0], STDIN_FILENO);
+				dup2(pipes[i][1], STDOUT_FILENO);
+			}
+			j = 0;
+			while (j < argc - 3)
+			{
+				close(pipes[j][0]);
+				close(pipes[j][1]);
 				j++;
 			}
-			if (read(pipes[i][0], &x, sizeof(x)) == -1)
-			{
-				printf("Error at reading");
-				return (errno);
-			}
-			++x;
-			if (write(pipes[i + 1][1], &x, sizeof(x)) == -1)
-			{
-				printf("Error at writing");
-				return (errno);
-			}
-			close(pipes[i][0]);
-			close(pipes[i + 1][0]);
-			return (0);
+			close(in_fd);
+			close(out_fd);
+			if (i == argc - 3)
+				execve("/usr/bin/wc", (char *[]){"wc", NULL}, env);
+			else
+				execve("/bin/cat", (char *[]){"cat", "-e", NULL}, env);
+			printf("Error executing command");
+			return (errno);
 		}
 		i++;
 	}
 	j = 0;
-	while (j < PROCESS_NUM + 1)
+	while (j < argc - 3)
 	{
-		if (j != PROCESS_NUM)
-			close(pipes[j][0]);
-		if (j != 0)
-			close(pipes[j][1]);
+		close(pipes[j][0]);
+		close(pipes[j][1]);
 		j++;
 	}
-	y = 1;
-	printf("Send is %d", y);
-	if (write(pipes[0][1], &y, sizeof(y)) == -1)
-	{
-		printf("Error at writing");
-		return (errno);
-	}
-	if (read(pipes[PROCESS_NUM][0], &y, sizeof(y)) == -1)
-	{
-		printf("Error at reading");
-		return (errno);
-	}
-	printf("Result is %d", y);
-	close(pipes[0][1]);
-	close(pipes[PROCESS_NUM][0]);
+	close(in_fd);
+	close(out_fd);
 	i = 0;
-	while (i < PROCESS_NUM)
+	while (i < argc - 2)
 	{
 		waitpid(pid[i], NULL, 0);
 		i++;
