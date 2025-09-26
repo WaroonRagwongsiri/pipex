@@ -3,50 +3,102 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: waroonwork@gmail.com <WaroonRagwongsiri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:48:33 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/09/25 22:54:13 by waragwon         ###   ########.fr       */
+/*   Updated: 2025/09/26 17:35:19 by waroonwork@      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	main(int argc, char **argv, char **env)
-{
-	int	p[2];
-	int	pid1;
-	int	pid2;
+#define PROCESS_NUM 3
 
-	if (pipe(p) == -1)
-		return (errno);
-	pid1 = fork();
-	if (pid1 == -1)
-		return (errno);
-	if (pid1 == 0)
+int	main(void)
+{
+	int	pid[PROCESS_NUM];
+	int	pipes[PROCESS_NUM + 1][2];
+	int	i;
+	int	j;
+	int	x;
+	int	y;
+
+	i = 0;
+	while (i < PROCESS_NUM + 1)
 	{
-		close(p[0]);
-		dup2(p[1], STDOUT_FILENO);
-		close(p[1]);
-		execve("/bin/ls", (char *[]){"ls", NULL}, env);
-		perror("execve ls");
-		exit(errno);
+		if (pipe(pipes[i]) == -1)
+		{
+			printf("Error createing pipes");
+			return (errno);
+		}
+		i++;
 	}
-	pid2 = fork();
-	if (pid2 == -1)
-		return (errno);
-	if (pid2 == 0)
+	i = 0;
+	while (i < PROCESS_NUM)
 	{
-		close(p[1]);
-		dup2(p[0], STDIN_FILENO);
-		close(p[0]);
-		execve("/bin/wc", (char *[]){"wc", NULL}, env);
-		perror("execve wc");
-		exit(errno);
+		pid[i] = fork();
+		if (pid[i] == -1)
+		{
+			printf("Error creating process");
+			return (errno);
+		}
+		if (pid[i] == 0)
+		{
+			j = 0;
+			while (j < PROCESS_NUM + 1)
+			{
+				if (i != j)
+					close(pipes[j][0]);
+				if (j != i + 1)
+					close(pipes[j][1]);
+				j++;
+			}
+			if (read(pipes[i][0], &x, sizeof(x)) == -1)
+			{
+				printf("Error at reading");
+				return (errno);
+			}
+			++x;
+			if (write(pipes[i + 1][1], &x, sizeof(x)) == -1)
+			{
+				printf("Error at writing");
+				return (errno);
+			}
+			close(pipes[i][0]);
+			close(pipes[i + 1][0]);
+			return (0);
+		}
+		i++;
 	}
-	close(p[0]);
-	close(p[1]);
-	waitpid(pid1, NULL, 0);
-	waitpid(pid2, NULL, 0);
+	j = 0;
+	while (j < PROCESS_NUM + 1)
+	{
+		if (j != PROCESS_NUM)
+			close(pipes[j][0]);
+		if (j != 0)
+			close(pipes[j][1]);
+		j++;
+	}
+	y = 1;
+	printf("Send is %d", y);
+	if (write(pipes[0][1], &y, sizeof(y)) == -1)
+	{
+		printf("Error at writing");
+		return (errno);
+	}
+	if (read(pipes[PROCESS_NUM][0], &y, sizeof(y)) == -1)
+	{
+		printf("Error at reading");
+		return (errno);
+	}
+	printf("Result is %d", y);
+	close(pipes[0][1]);
+	close(pipes[PROCESS_NUM][0]);
+	i = 0;
+	while (i < PROCESS_NUM)
+	{
+		waitpid(pid[i], NULL, 0);
+		i++;
+	}
 	return (0);
 }
