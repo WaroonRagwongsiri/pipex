@@ -19,6 +19,7 @@ INC_DIR			:=	includes/
 SRCS_DIR		:=	srcs/
 
 SRCS_FILES		:=	main.c \
+					utils/parse_command.c
 
 SRCS			:=	$(SRCS_FILES:%.c=$(SRCS_DIR)%.c)
 OBJS			:=	$(SRCS:%.c=%.o)
