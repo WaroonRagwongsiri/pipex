@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waroonwork@gmail.com <WaroonRagwongsiri    +#+  +:+       +#+        */
+/*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:51:07 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/09/26 21:03:27 by waroonwork@      ###   ########.fr       */
+/*   Updated: 2025/09/27 11:52:33 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <stdio.h>
 # include <errno.h>
 
-char	**parse_command(char *str);
+// Parse Command
+char	**parse_command(char *str, char **env);
+char	*find_command_path(char *cmd, char **env);
+char	*find_usable_path(char *cmd, char **all_path);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waroonwork@gmail.com <WaroonRagwongsiri    +#+  +:+       +#+        */
+/*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:48:33 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/09/26 22:12:11 by waroonwork@      ###   ########.fr       */
+/*   Updated: 2025/09/27 12:34:15 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		if (pipe(pipes[i]) == -1)
 		{
-			printf("Error createing pipes");
+			perror("Error createing pipes");
 			return (errno);
 		}
 		i++;
@@ -47,7 +47,7 @@ int	main(int argc, char **argv, char **env)
 		pid[i] = fork();
 		if (pid[i] == -1)
 		{
-			printf("Error creating process");
+			perror("Error creating process");
 			return (errno);
 		}
 		if (pid[i] == 0)
@@ -76,9 +76,9 @@ int	main(int argc, char **argv, char **env)
 			}
 			close(in_fd);
 			close(out_fd);
-			cmd = parse_command(argv[i + 2]);
+			cmd = parse_command(argv[i + 2], env);
 			execve(cmd[0], cmd, env);
-			printf("Error executing command");
+			perror("Error executing command");
 			return (errno);
 		}
 		i++;
