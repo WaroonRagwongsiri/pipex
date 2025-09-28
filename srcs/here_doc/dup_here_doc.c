@@ -6,7 +6,7 @@
 /*   By: waroonwork@gmail.com <WaroonRagwongsiri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 13:57:22 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/09/28 15:43:53 by waroonwork@      ###   ########.fr       */
+/*   Updated: 2025/09/28 15:51:49 by waroonwork@      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,5 @@ void	close_pipes_heredoc(int pipes[99][2], int process_num)
 		i++;
 	}
 	close(pipes[HEREDOC_PIPES][0]);
+	close(pipes[HEREDOC_PIPES][1]);
 }

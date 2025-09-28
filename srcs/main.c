@@ -6,7 +6,7 @@
 /*   By: waroonwork@gmail.com <WaroonRagwongsiri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:48:33 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/09/28 15:21:29 by waroonwork@      ###   ########.fr       */
+/*   Updated: 2025/09/28 15:50:29 by waroonwork@      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	main(int argc, char **argv, char **env)
 		ft_putstr_fd("Invalid number of arguments\n", 2);
 		return (1);
 	}
-	
 	if (ft_strncmp(argv[1], "here_doc", 9) == 0 && argc < 90 && argc >= 6)
 	{
 		io_fd[0] = 0;
