@@ -6,7 +6,7 @@
 /*   By: waroonwork@gmail.com <WaroonRagwongsiri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:51:07 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/09/28 15:48:52 by waroonwork@      ###   ########.fr       */
+/*   Updated: 2025/09/28 17:11:16 by waroonwork@      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int		read_until_lim(int pipes[99][2], char *lim);
 void	close_pipes_heredoc(int pipes[99][2], int process_num);
 void	exit_pipes_heredoc(int pipes[99][2], int process_num);
 void	exit_fork_heredoc(int pipes[99][2], int process_num);
+void	read_to_end(int out_fd);
 
 // GNL_lim
 char	*get_next_line_lim(int fd, char *lim);

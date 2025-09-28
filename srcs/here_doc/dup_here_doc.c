@@ -6,7 +6,7 @@
 /*   By: waroonwork@gmail.com <WaroonRagwongsiri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 13:57:22 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/09/28 15:51:49 by waroonwork@      ###   ########.fr       */
+/*   Updated: 2025/09/28 17:11:03 by waroonwork@      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	dup_heredoc(int index_process, int pipes[99][2],\
 	}
 	else if (index_process == process_num - 1)
 	{
+		read_to_end(io_fd[1]);
 		dup2(pipes[index_process - 1][0], STDIN_FILENO);
 		dup2(io_fd[1], STDOUT_FILENO);
 	}
@@ -61,4 +62,16 @@ void	close_pipes_heredoc(int pipes[99][2], int process_num)
 	}
 	close(pipes[HEREDOC_PIPES][0]);
 	close(pipes[HEREDOC_PIPES][1]);
+}
+
+void	read_to_end(int out_fd)
+{
+	char	buffer[1024];
+	int		byte_reads;
+
+	byte_reads = 1;
+	while (byte_reads > 0)
+	{
+		byte_reads = read(out_fd, buffer, sizeof(buffer));
+	}
 }
