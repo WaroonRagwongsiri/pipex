@@ -6,7 +6,7 @@
 /*   By: waroonwork@gmail.com <WaroonRagwongsiri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 11:30:46 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/09/28 15:11:53 by waroonwork@      ###   ########.fr       */
+/*   Updated: 2025/09/28 17:00:55 by waroonwork@      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,5 @@ void	exec_cmd(int index_cmd, char **argv, char **env)
 	execve(cmd[0], cmd, env);
 	free_arr(cmd);
 	perror("Error at exec");
-	exit(errno);
+	exit(EXIT_FAILURE);
 }

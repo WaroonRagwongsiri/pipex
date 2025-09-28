@@ -6,7 +6,7 @@
 /*   By: waroonwork@gmail.com <WaroonRagwongsiri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:48:33 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/09/28 15:50:29 by waroonwork@      ###   ########.fr       */
+/*   Updated: 2025/09/28 17:00:41 by waroonwork@      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int argc, char **argv, char **env)
 	else
 	{
 		io_fd[0] = open(argv[1], O_RDONLY);
-		io_fd[1] = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		io_fd[1] = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC);
 		close_io_error(io_fd);
 		pipex(argc, argv, env, io_fd);
 	}
@@ -56,6 +56,6 @@ void	close_io_error(int io_fd[2])
 			if (io_fd[0] > 0)
 				close(io_fd[0]);
 		}
-		exit(errno);
+		exit(EXIT_FAILURE);
 	}
 }
