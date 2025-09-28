@@ -3,4 +3,5 @@
 *.o
 *test*
 pipex
+!srcs/pipex
 .vscode
