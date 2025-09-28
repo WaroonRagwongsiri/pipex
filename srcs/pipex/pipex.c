@@ -6,13 +6,14 @@
 /*   By: waroonwork@gmail.com <WaroonRagwongsiri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 11:30:46 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/09/28 13:16:02 by waroonwork@      ###   ########.fr       */
+/*   Updated: 2025/09/28 15:11:53 by waroonwork@      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	pipex(int argc, char **argv, char **env, int io_fd[2])
+// ./pipex infile cmd cmd outfile
+void	pipex(int argc, char **argv, char **env, int io_fd[2])
 {
 	int		pid[100];
 	int		pipes[99][2];
@@ -37,7 +38,6 @@ int	pipex(int argc, char **argv, char **env, int io_fd[2])
 	i = -1;
 	while (++i < (argc - 3))
 		waitpid(pid[i], NULL, 0);
-	return (1);
 }
 
 void	exec_cmd(int index_cmd, char **argv, char **env)

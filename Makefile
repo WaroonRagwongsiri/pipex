@@ -21,6 +21,10 @@ SRCS_DIR		:=	srcs/
 SRCS_FILES		:=	main.c \
 					utils/parse_command.c utils/exit_err.c \
 					pipex/pipex.c pipex/pipes_process.c \
+					here_doc/here_doc.c here_doc/dup_here_doc.c \
+					here_doc/exit_err_doc.c \
+					gnl/get_next_line_lim.c gnl/get_next_line.c \
+					gnl/get_next_line_utils.c
 
 SRCS			:=	$(SRCS_FILES:%.c=$(SRCS_DIR)%.c)
 OBJS			:=	$(SRCS:%.c=%.o)
