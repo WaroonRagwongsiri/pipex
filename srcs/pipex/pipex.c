@@ -6,7 +6,7 @@
 /*   By: waroonwork@gmail.com <WaroonRagwongsiri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 11:30:46 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/09/28 12:43:12 by waroonwork@      ###   ########.fr       */
+/*   Updated: 2025/09/28 13:16:02 by waroonwork@      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@ int	pipex(int argc, char **argv, char **env, int io_fd[2])
 {
 	int		pid[100];
 	int		pipes[99][2];
-	char	**cmd;
 	int		i;
 
 	if (!open_pipes(pipes, (argc - 3)))
 		exit_pipes(pipes, io_fd, (argc - 3));
-	i = 0;
-	while (i < (argc - 3))
+	i = -1;
+	while (++i < (argc - 3))
 	{
 		pid[i] = fork();
 		if (pid[i] == -1)
@@ -31,20 +30,23 @@ int	pipex(int argc, char **argv, char **env, int io_fd[2])
 		{
 			dup_process(i, pipes, io_fd, (argc - 3));
 			close_pipes(pipes, io_fd, (argc - 3));
-			cmd = parse_command(argv[i + 2], env);
-			execve(cmd[0], cmd, env);
-			free_arr(cmd);
-			perror("Error at exec");
-			return (errno);
+			exec_cmd((i + 2), argv, env);
 		}
-		i++;
 	}
 	close_pipes(pipes, io_fd, (argc - 3));
-	i = 0;
-	while (i < (argc - 3))
-	{
+	i = -1;
+	while (++i < (argc - 3))
 		waitpid(pid[i], NULL, 0);
-		i++;
-	}
 	return (1);
+}
+
+void	exec_cmd(int index_cmd, char **argv, char **env)
+{
+	char	**cmd;
+
+	cmd = parse_command(argv[index_cmd], env);
+	execve(cmd[0], cmd, env);
+	free_arr(cmd);
+	perror("Error at exec");
+	exit(errno);
 }

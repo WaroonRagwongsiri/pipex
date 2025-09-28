@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: waroonwork@gmail.com <WaroonRagwongsiri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 20:18:39 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/09/27 12:22:28 by waragwon         ###   ########.fr       */
+/*   Updated: 2025/09/28 13:17:23 by waroonwork@      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	*find_command_path(char *cmd, char **env)
 {
 	char	*path;
 	char	**all_path;
+
 	path = NULL;
 	while (*env)
 	{

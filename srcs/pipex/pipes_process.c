@@ -6,7 +6,7 @@
 /*   By: waroonwork@gmail.com <WaroonRagwongsiri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 12:26:28 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/09/28 12:32:25 by waroonwork@      ###   ########.fr       */
+/*   Updated: 2025/09/28 13:17:09 by waroonwork@      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	close_pipes(int pipes[99][2], int io_fd[2], int process_num)
 	close(io_fd[1]);
 }
 
-void	dup_process(int index_process, int pipes[99][2], int io_fd[2], int process_num)
+void	dup_process(int index_process, int pipes[99][2],\
+	int io_fd[2], int process_num)
 {
 	if (index_process == 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: waroonwork@gmail.com <WaroonRagwongsiri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:51:07 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/09/28 12:37:26 by waroonwork@      ###   ########.fr       */
+/*   Updated: 2025/09/28 13:16:13 by waroonwork@      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ int		pipex(int argc, char **argv, char **env, int io_fd[2]);
 int		open_pipes(int pipes[99][2], int process_num);
 void	close_pipes(int pipes[99][2], int io_fd[2], int process_num);
 void	dup_process(int index_process, int pipes[99][2], int io_fd[2], int process_num);
+void	exec_cmd(int index_cmd, char **argv, char **env);
 
 // Exit
 void	exit_pipes(int pipes[99][2], int io_fd[2], int process_num);
 void	exit_fork(int pipes[99][2], int io_fd[2], int process_num);
-void	exit_exec(int pipes[99][2], int io_fd[2], int process_num);
 
 #endif
