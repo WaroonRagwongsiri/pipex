@@ -6,13 +6,13 @@
 /*   By: waroonwork@gmail.com <WaroonRagwongsiri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 11:30:46 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/09/28 12:32:54 by waroonwork@      ###   ########.fr       */
+/*   Updated: 2025/09/28 12:43:12 by waroonwork@      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	pipex(int argc, char **argv, char **env, int io_fd[2])
+int	pipex(int argc, char **argv, char **env, int io_fd[2])
 {
 	int		pid[100];
 	int		pipes[99][2];
@@ -33,7 +33,9 @@ void	pipex(int argc, char **argv, char **env, int io_fd[2])
 			close_pipes(pipes, io_fd, (argc - 3));
 			cmd = parse_command(argv[i + 2], env);
 			execve(cmd[0], cmd, env);
-			exit_exec(pipes, io_fd, (argc - 3));
+			free_arr(cmd);
+			perror("Error at exec");
+			return (errno);
 		}
 		i++;
 	}
@@ -44,4 +46,5 @@ void	pipex(int argc, char **argv, char **env, int io_fd[2])
 		waitpid(pid[i], NULL, 0);
 		i++;
 	}
+	return (1);
 }
