@@ -6,7 +6,7 @@
 /*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:48:33 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/10/02 16:07:53 by waragwon         ###   ########.fr       */
+/*   Updated: 2025/10/02 17:48:41 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,3 @@ int	main(int argc, char **argv, char **env)
 	}
 	return (0);
 }
-
