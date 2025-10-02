@@ -6,7 +6,7 @@
 /*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 11:42:51 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/10/02 15:58:04 by waragwon         ###   ########.fr       */
+/*   Updated: 2025/10/02 16:24:00 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,27 +30,40 @@ void	close_io_error(int argc, char **argv, char **env, int io_fd[2])
 {
 	if (io_fd[0] == -1 || io_fd[1] == -1)
 	{
-		if (io_fd[0] == -1)
-		{
-			perror("Error opening input file");
-			if (io_fd[1] > 0)
-				close(io_fd[1]);
-		}
-		if (io_fd[1] == -1)
-		{
-			perror("Error opening output file");
-			if (io_fd[0] > 0)
-				close(io_fd[0]);
-		}
+		perror("Error opening input file");
+		close_fd(io_fd[0]);
+		close_fd(io_fd[1]);
 		exit(EXIT_FAILURE);
 	}
 	if (!check_command(argc, argv, env))
 	{
-		if (io_fd[1] > 0)
-			close(io_fd[1]);
-		if (io_fd[0] > 0)
-			close(io_fd[0]);
+		close_fd(io_fd[0]);
+		close_fd(io_fd[1]);
 		perror("Error executing command");
 		exit(EXIT_FAILURE);
 	}
+}
+
+void	close_io_error_heredoc(int argc, char **argv, char **env, int io_fd[2])
+{
+	if (io_fd[0] == -1 || io_fd[1] == -1)
+	{
+		perror("Error opening input file");
+		close_fd(io_fd[0]);
+		close_fd(io_fd[1]);
+		exit(EXIT_FAILURE);
+	}
+	if (!check_command_heredoc(argc, argv, env))
+	{
+		close_fd(io_fd[0]);
+		close_fd(io_fd[1]);
+		perror("Error executing command");
+		exit(EXIT_FAILURE);
+	}
+}
+
+void	close_fd(int fd)
+{
+	if (fd > 0)
+		close(fd);
 }

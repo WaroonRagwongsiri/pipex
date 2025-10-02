@@ -6,7 +6,7 @@
 /*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:51:07 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/10/02 15:58:14 by waragwon         ###   ########.fr       */
+/*   Updated: 2025/10/02 16:24:52 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	exit_pipes(int pipes[99][2], int io_fd[2], int process_num);
 void	exit_fork(int pipes[99][2], int io_fd[2], int process_num);
 void	close_io_error(int argc, char **argv, char **env, int io_fd[2]);
 int		check_command(int argc, char **argv, char **env);
+void	close_fd(int fd);
 
 // heredoc
 void	here_doc(int argc, char **argv, char **env, int io_fd[2]);
@@ -52,6 +53,8 @@ void	close_pipes_heredoc(int pipes[99][2], int process_num);
 void	exit_pipes_heredoc(int pipes[99][2], int process_num);
 void	exit_fork_heredoc(int pipes[99][2], int process_num);
 void	read_to_end(int out_fd);
+int		check_command_heredoc(int argc, char **argv, char **env);
+void	close_io_error_heredoc(int argc, char **argv, char **env, int io_fd[2]);
 
 // GNL_lim
 char	*get_next_line_lim(int fd, char *lim);

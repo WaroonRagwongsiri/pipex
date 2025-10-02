@@ -6,7 +6,7 @@
 /*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:48:33 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/10/02 15:58:45 by waragwon         ###   ########.fr       */
+/*   Updated: 2025/10/02 16:07:53 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ int	main(int argc, char **argv, char **env)
 	{
 		io_fd[0] = 0;
 		io_fd[1] = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		close_io_error(argc, argv, env, io_fd);
+		close_io_error_heredoc(argc, argv, env, io_fd);
 		here_doc(argc, argv, env, io_fd);
 	}
 	else
 	{
 		io_fd[0] = open(argv[1], O_RDONLY);
 		io_fd[1] = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC);
-		close_io_error(argc, argv, env, io_fd);
+		close_io_error_heredoc(argc, argv, env, io_fd);
 		pipex(argc, argv, env, io_fd);
 	}
 	return (0);

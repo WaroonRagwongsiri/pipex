@@ -6,7 +6,7 @@
 /*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 20:18:39 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/10/02 15:37:47 by waragwon         ###   ########.fr       */
+/*   Updated: 2025/10/02 16:34:12 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ char	**parse_command(char *str, char **env)
 	if (!command || !env)
 		return (NULL);
 	cmd = find_command_path(command[0], env);
+	if (!cmd)
+		return (free_arr(command), NULL);
 	free(command[0]);
 	command[0] = cmd;
 	return (command);
