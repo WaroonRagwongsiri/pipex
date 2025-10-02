@@ -6,7 +6,7 @@
 /*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 22:01:25 by waragwon          #+#    #+#             */
-/*   Updated: 2025/10/02 22:13:54 by waragwon         ###   ########.fr       */
+/*   Updated: 2025/10/02 22:46:46 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,12 @@ int	wait_pid_process(int pid[100], int process_num)
 		{
 			if (closed[i])
 				continue ;
-			waitpid(pid[i], &status[i], WNOHANG);
-			WEXITSTATUS(status[i]);
-			closed[i] = 1;
-			closed_process++;
+			if (waitpid(pid[i], &status[i], WNOHANG) > 0)
+			{
+				WEXITSTATUS(status[i]);
+				closed[i] = 1;
+				closed_process++;
+			}
 		}
 	}
 	return (status[process_num - 1]);
