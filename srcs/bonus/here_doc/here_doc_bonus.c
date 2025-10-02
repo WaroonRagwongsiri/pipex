@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   here_doc.c                                         :+:      :+:    :+:   */
+/*   here_doc_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waroonwork@gmail.com <WaroonRagwongsiri    +#+  +:+       +#+        */
+/*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 13:22:57 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/09/28 15:51:44 by waroonwork@      ###   ########.fr       */
+/*   Updated: 2025/10/02 17:34:58 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	here_doc(int argc, char **argv, char **env, int io_fd[2])
 	close_pipes_heredoc(pipes, (argc - 4));
 	i = -1;
 	while (++i < (argc - 4))
-		waitpid(pid[i], NULL, 0);
+		wait(NULL);
 }
 
 int	read_until_lim(int pipes[99][2], char *lim)
