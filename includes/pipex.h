@@ -6,7 +6,7 @@
 /*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:51:07 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/10/02 16:24:52 by waragwon         ###   ########.fr       */
+/*   Updated: 2025/10/02 22:09:37 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	exit_fork(int pipes[99][2], int io_fd[2], int process_num);
 void	close_io_error(int argc, char **argv, char **env, int io_fd[2]);
 int		check_command(int argc, char **argv, char **env);
 void	close_fd(int fd);
+int		wait_pid_process(int pid[100], int process_num);
 
 // heredoc
 void	here_doc(int argc, char **argv, char **env, int io_fd[2]);

@@ -6,7 +6,7 @@
 /*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 13:22:57 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/10/02 21:44:54 by waragwon         ###   ########.fr       */
+/*   Updated: 2025/10/02 22:11:38 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ void	here_doc(int argc, char **argv, char **env, int io_fd[2])
 		}
 	}
 	close_pipes_heredoc(pipes, (argc - 4));
-	i = -1;
-	while (++i < (argc - 4))
-		waitpid(pid[i], NULL, WNOHANG);
+	wait_pid_process(pid, (argc - 4));
 }
 
 int	read_until_lim(int pipes[99][2], char *lim)
