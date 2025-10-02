@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waroonwork@gmail.com <WaroonRagwongsiri    +#+  +:+       +#+        */
+/*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 20:18:39 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/09/28 13:17:23 by waroonwork@      ###   ########.fr       */
+/*   Updated: 2025/10/02 15:37:47 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	**parse_command(char *str, char **env)
 	char		**command;
 
 	command = ft_split(str, ' ');
-	if (!command)
+	if (!command || !env)
 		return (NULL);
 	cmd = find_command_path(command[0], env);
 	free(command[0]);

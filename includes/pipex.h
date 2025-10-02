@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waroonwork@gmail.com <WaroonRagwongsiri    +#+  +:+       +#+        */
+/*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:51:07 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/09/28 17:11:16 by waroonwork@      ###   ########.fr       */
+/*   Updated: 2025/10/02 15:58:14 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	exec_cmd(int index_cmd, char **argv, char **env);
 // Utils
 void	exit_pipes(int pipes[99][2], int io_fd[2], int process_num);
 void	exit_fork(int pipes[99][2], int io_fd[2], int process_num);
-void	close_io_error(int io_fd[2]);
+void	close_io_error(int argc, char **argv, char **env, int io_fd[2]);
+int		check_command(int argc, char **argv, char **env);
 
 // heredoc
 void	here_doc(int argc, char **argv, char **env, int io_fd[2]);

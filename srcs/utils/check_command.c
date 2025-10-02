@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   check_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/17 17:48:33 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/10/02 15:58:29 by waragwon         ###   ########.fr       */
+/*   Created: 2025/10/02 15:44:56 by waragwon          #+#    #+#             */
+/*   Updated: 2025/10/02 16:00:17 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-// ./pipex infile cmd cmd outfile
-// ./pipex here_doc LIMITER cmd cmd outfile
-int	main(int argc, char **argv, char **env)
+int	check_command(int argc, char **argv, char **env)
 {
-	int	io_fd[2];
+	char	**cmd;
+	int		i;
 
-	if (argc < 5 || argc > 103)
+	i = -1;
+	while (++i < (argc - 3))
 	{
-		ft_putstr_fd("Invalid number of arguments\n", 2);
-		return (1);
+		cmd = parse_command(argv[i], env);
+		if (!cmd)
+			return (0);
+		if (!cmd[0])
+			return (free_arr(cmd), 0);
 	}
-	io_fd[0] = open(argv[1], O_RDONLY);
-	io_fd[1] = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC);
-	close_io_error(argc, argv, env, io_fd);
-	pipex(argc, argv, env, io_fd);
-	return (0);
+	return (1);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waroonwork@gmail.com <WaroonRagwongsiri    +#+  +:+       +#+        */
+/*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:48:33 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/09/28 17:00:41 by waroonwork@      ###   ########.fr       */
+/*   Updated: 2025/10/02 15:58:45 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,35 +27,16 @@ int	main(int argc, char **argv, char **env)
 	{
 		io_fd[0] = 0;
 		io_fd[1] = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		close_io_error(io_fd);
+		close_io_error(argc, argv, env, io_fd);
 		here_doc(argc, argv, env, io_fd);
 	}
 	else
 	{
 		io_fd[0] = open(argv[1], O_RDONLY);
 		io_fd[1] = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC);
-		close_io_error(io_fd);
+		close_io_error(argc, argv, env, io_fd);
 		pipex(argc, argv, env, io_fd);
 	}
 	return (0);
 }
 
-void	close_io_error(int io_fd[2])
-{
-	if (io_fd[0] == -1 || io_fd[1] == -1)
-	{
-		if (io_fd[0] == -1)
-		{
-			perror("Error opening input file");
-			if (io_fd[1] > 0)
-				close(io_fd[1]);
-		}
-		if (io_fd[1] == -1)
-		{
-			perror("Error opening output file");
-			if (io_fd[0] > 0)
-				close(io_fd[0]);
-		}
-		exit(EXIT_FAILURE);
-	}
-}

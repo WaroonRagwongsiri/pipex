@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waroonwork@gmail.com <WaroonRagwongsiri    +#+  +:+       +#+        */
+/*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 11:30:46 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/09/28 17:00:55 by waroonwork@      ###   ########.fr       */
+/*   Updated: 2025/10/02 15:39:04 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ void	exec_cmd(int index_cmd, char **argv, char **env)
 	char	**cmd;
 
 	cmd = parse_command(argv[index_cmd], env);
+	if (!cmd)
+	{
+		perror("Error at exec");
+		exit(EXIT_FAILURE);
+	}
 	execve(cmd[0], cmd, env);
 	free_arr(cmd);
 	perror("Error at exec");
