@@ -6,7 +6,7 @@
 /*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 15:44:56 by waragwon          #+#    #+#             */
-/*   Updated: 2025/10/02 16:00:17 by waragwon         ###   ########.fr       */
+/*   Updated: 2025/10/02 16:03:13 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	check_command(int argc, char **argv, char **env)
 	i = -1;
 	while (++i < (argc - 3))
 	{
-		cmd = parse_command(argv[i], env);
+		cmd = parse_command(argv[i + 2], env);
 		if (!cmd)
 			return (0);
 		if (!cmd[0])
