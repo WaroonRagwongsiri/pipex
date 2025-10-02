@@ -3,5 +3,6 @@
 *.o
 *test*
 pipex
+pipex_bonus
 !srcs/pipex
 .vscode
