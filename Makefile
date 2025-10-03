@@ -23,6 +23,7 @@ SRCS_DIR		:=	srcs/
 SRCS_FILES		:=	main.c \
 					utils/parse_command.c utils/exit_err.c \
 					utils/check_command.c utils/wait_pid_process.c \
+					utils/open_file.c \
 					pipex/pipex.c pipex/pipes_process.c \
 
 SRCS			:=	$(SRCS_FILES:%.c=$(SRCS_DIR)%.c)

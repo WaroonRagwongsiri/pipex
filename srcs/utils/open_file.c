@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   open_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/17 17:48:33 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/10/03 13:26:44 by waragwon         ###   ########.fr       */
+/*   Created: 2025/10/03 13:23:15 by waragwon          #+#    #+#             */
+/*   Updated: 2025/10/03 13:27:58 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-// ./pipex infile cmd cmd outfile
-// ./pipex here_doc LIMITER cmd cmd outfile
-int	main(int argc, char **argv, char **env)
+void	open_file(int io_fd[2], char *infile, char *outfile)
 {
-	int	io_fd[2];
-
-	if (argc < 5 || argc > 103)
+	if (!infile)
 	{
-		ft_putstr_fd("Invalid number of arguments\n", 2);
-		return (1);
+		io_fd[0] = 0;
+		io_fd[1] = open(outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	}
-	open_file(io_fd, argv[1], argv[argc - 1]);
-	close_io_error(argc, argv, env, io_fd);
-	pipex(argc, argv, env, io_fd);
-	return (0);
+	else
+	{
+		io_fd[0] = open(infile, O_RDONLY);
+		io_fd[1] = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	}
 }

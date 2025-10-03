@@ -6,7 +6,7 @@
 /*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:48:33 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/10/03 12:37:40 by waragwon         ###   ########.fr       */
+/*   Updated: 2025/10/03 13:27:26 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,13 @@ int	main(int argc, char **argv, char **env)
 	}
 	if (ft_strncmp(argv[1], "here_doc", 9) == 0 && argc < 90 && argc >= 6)
 	{
-		io_fd[0] = 0;
-		io_fd[1] = open(argv[argc - 1], O_WRONLY | O_CREAT | O_APPEND, 0644);
+		open_file(io_fd, NULL, argv[argc - 1]);
 		close_io_error_heredoc(argc, argv, env, io_fd);
 		here_doc(argc, argv, env, io_fd);
 	}
 	else
 	{
-		io_fd[0] = open(argv[1], O_RDONLY);
-		io_fd[1] = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		open_file(io_fd, argv[1], argv[argc - 1]);
 		close_io_error_heredoc(argc, argv, env, io_fd);
 		pipex(argc, argv, env, io_fd);
 	}
