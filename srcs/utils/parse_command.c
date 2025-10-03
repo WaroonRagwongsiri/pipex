@@ -6,7 +6,7 @@
 /*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 20:18:39 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/10/02 16:34:12 by waragwon         ###   ########.fr       */
+/*   Updated: 2025/10/03 15:25:16 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	**parse_command(char *str, char **env)
 	char		*cmd;
 	char		**command;
 
+	if (count_word_split(str, ' ') == 0)
+		return (NULL);
 	command = ft_split(str, ' ');
 	if (!command || !env)
 		return (NULL);
