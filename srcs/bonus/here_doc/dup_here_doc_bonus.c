@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dup_here_doc.c                                     :+:      :+:    :+:   */
+/*   dup_here_doc_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waroonwork@gmail.com <WaroonRagwongsiri    +#+  +:+       +#+        */
+/*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 13:57:22 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/09/28 17:11:03 by waroonwork@      ###   ########.fr       */
+/*   Updated: 2025/10/03 12:53:50 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ void	close_pipes_heredoc(int pipes[99][2], int process_num)
 	i = 0;
 	while (i < process_num - 1)
 	{
-		close(pipes[i][0]);
-		close(pipes[i][1]);
+		close_fd(pipes[i][0]);
+		close_fd(pipes[i][1]);
 		i++;
 	}
-	close(pipes[HEREDOC_PIPES][0]);
-	close(pipes[HEREDOC_PIPES][1]);
+	close_fd(pipes[HEREDOC_PIPES][0]);
+	close_fd(pipes[HEREDOC_PIPES][1]);
 }
 
 void	read_to_end(int out_fd)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waroonwork@gmail.com <WaroonRagwongsiri    +#+  +:+       +#+        */
+/*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 12:26:28 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/09/28 13:17:09 by waroonwork@      ###   ########.fr       */
+/*   Updated: 2025/10/03 12:57:51 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ void	close_pipes(int pipes[99][2], int io_fd[2], int process_num)
 	i = 0;
 	while (i < process_num - 1)
 	{
-		close(pipes[i][0]);
-		close(pipes[i][1]);
+		close_fd(pipes[i][0]);
+		close_fd(pipes[i][1]);
 		i++;
 	}
-	close(io_fd[0]);
-	close(io_fd[1]);
+	close_fd(io_fd[0]);
+	close_fd(io_fd[1]);
 }
 
 void	dup_process(int index_process, int pipes[99][2],\
