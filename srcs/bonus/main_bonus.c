@@ -6,7 +6,7 @@
 /*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:48:33 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/10/03 13:27:26 by waragwon         ###   ########.fr       */
+/*   Updated: 2025/10/03 14:15:36 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // ./pipex here_doc LIMITER cmd cmd outfile
 int	main(int argc, char **argv, char **env)
 {
-	int	io_fd[2];
+	static int	io_fd[2] = {0};
 
 	if (argc < 5 || argc > 103)
 	{
@@ -32,7 +32,7 @@ int	main(int argc, char **argv, char **env)
 	else
 	{
 		open_file(io_fd, argv[1], argv[argc - 1]);
-		close_io_error_heredoc(argc, argv, env, io_fd);
+		close_io_error(argc, argv, env, io_fd);
 		pipex(argc, argv, env, io_fd);
 	}
 	return (0);

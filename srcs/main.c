@@ -6,17 +6,16 @@
 /*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:48:33 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/10/03 13:26:44 by waragwon         ###   ########.fr       */
+/*   Updated: 2025/10/03 14:33:18 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 // ./pipex infile cmd cmd outfile
-// ./pipex here_doc LIMITER cmd cmd outfile
 int	main(int argc, char **argv, char **env)
 {
-	int	io_fd[2];
+	static int	io_fd[2] = {0};
 
 	if (argc < 5 || argc > 103)
 	{

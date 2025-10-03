@@ -6,7 +6,7 @@
 /*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:51:07 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/10/03 13:26:24 by waragwon         ###   ########.fr       */
+/*   Updated: 2025/10/03 14:37:21 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int		check_command(int argc, char **argv, char **env);
 void	close_fd(int fd);
 int		wait_pid_process(int pid[100], int process_num);
 void	open_file(int io_fd[2], char *infile, char *outfile);
+void	skip_first_cmd(void);
 
 // heredoc
 void	here_doc(int argc, char **argv, char **env, int io_fd[2]);

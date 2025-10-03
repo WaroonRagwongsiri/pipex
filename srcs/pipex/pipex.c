@@ -6,7 +6,7 @@
 /*   By: waragwon <waragwon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 11:30:46 by waroonwork@       #+#    #+#             */
-/*   Updated: 2025/10/02 22:11:30 by waragwon         ###   ########.fr       */
+/*   Updated: 2025/10/03 14:37:13 by waragwon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	pipex(int argc, char **argv, char **env, int io_fd[2])
 		{
 			dup_process(i, pipes, io_fd, (argc - 3));
 			close_pipes(pipes, io_fd, (argc - 3));
+			if (i == 0 && io_fd[0] == -1)
+				skip_first_cmd();
 			exec_cmd((i + 2), argv, env);
 		}
 	}
@@ -51,5 +53,11 @@ void	exec_cmd(int index_cmd, char **argv, char **env)
 	execve(cmd[0], cmd, env);
 	free_arr(cmd);
 	perror("Error at exec");
+	exit(EXIT_FAILURE);
+}
+
+void	skip_first_cmd(void)
+{
+	perror("Error opening infile");
 	exit(EXIT_FAILURE);
 }
